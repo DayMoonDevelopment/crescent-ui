@@ -1,0 +1,57 @@
+/*
+ * style-luma — pillowy & soft (after shadcn's Luma). Heavily rounded, filled
+ * tonal items with a real drop shadow and circular icon tiles. The softest,
+ * most tactile style. Primary-tinted selection. Same cn-choicebox-* contract
+ * (see style-mira.css).
+ */
+.style-luma {
+  .cn-choicebox {
+    @apply gap-3;
+  }
+
+  .cn-choicebox-item {
+    @apply rounded-3xl border border-transparent bg-muted/50 text-foreground shadow-sm hover:bg-muted/70 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 data-pressed:border-primary data-pressed:bg-primary/5 data-[state=on]:border-primary data-[state=on]:bg-primary/5;
+  }
+
+  .cn-choicebox-item-size-default {
+    @apply gap-3.5 p-5;
+  }
+
+  .cn-choicebox-item-size-sm {
+    @apply gap-3 p-4;
+  }
+
+  /* Circular icon tile on an inset light fill — Luma's pillowy depth. */
+  .cn-choicebox-item-icon {
+    @apply size-10 rounded-full bg-background text-muted-foreground shadow-xs transition-colors group-data-pressed/choicebox-item:bg-primary group-data-pressed/choicebox-item:text-primary-foreground group-data-[state=on]/choicebox-item:bg-primary group-data-[state=on]/choicebox-item:text-primary-foreground [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5;
+  }
+
+  .cn-choicebox-item-title {
+    @apply text-sm font-medium text-foreground;
+  }
+
+  .cn-choicebox-item-description {
+    @apply text-xs/relaxed text-muted-foreground;
+  }
+
+  .cn-choicebox-item-indicator {
+    @apply size-5 rounded-full data-[multiple]:rounded-lg border border-input bg-background text-transparent transition-colors group-data-pressed/choicebox-item:border-primary group-data-pressed/choicebox-item:bg-primary group-data-pressed/choicebox-item:text-primary-foreground group-data-[state=on]/choicebox-item:border-primary group-data-[state=on]/choicebox-item:bg-primary group-data-[state=on]/choicebox-item:text-primary-foreground;
+  }
+
+  /* Chrome — pillowy: full-round buttons, very round selects. */
+  .cn-button {
+    @apply rounded-full font-medium;
+  }
+  .cn-select-trigger {
+    @apply rounded-3xl;
+  }
+  .cn-select-content {
+    @apply rounded-3xl;
+  }
+  .cn-select-item {
+    @apply rounded-2xl;
+  }
+  .cn-card {
+    @apply rounded-3xl;
+  }
+}

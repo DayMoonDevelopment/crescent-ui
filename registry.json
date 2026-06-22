@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "crescent-ui",
+  "homepage": "https://github.com/DayMoonDevelopment/crescent-ui",
+  "items": [
+    {
+      "name": "choicebox",
+      "type": "registry:ui",
+      "title": "Choicebox",
+      "description": "A card-styled selection group for single and multi select, built on the Base UI Toggle Group. Horizontal rows or vertical cards, with radio or checkbox indicators. Fully theme-token driven and icon-library agnostic.",
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "files": [
+        {
+          "path": "registry/bases/base/ui/choicebox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/choicebox.tsx"
+        }
+      ]
+    },
+    {
+      "name": "choicebox-radix",
+      "type": "registry:ui",
+      "title": "Choicebox (Radix)",
+      "description": "The Radix variant of Choicebox — visually identical to the Base UI variant, built on the Radix Toggle Group (type=\"single\" | \"multiple\"). Install this when your project's base is `radix`.",
+      "dependencies": ["radix-ui", "class-variance-authority"],
+      "files": [
+        {
+          "path": "registry/bases/radix/ui/choicebox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/choicebox.tsx"
+        }
+      ]
+    }
+  ]
+}

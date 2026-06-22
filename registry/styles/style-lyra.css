@@ -1,0 +1,56 @@
+/*
+ * style-lyra — compact & technical (after shadcn's Lyra). Square corners like
+ * Sera, but the opposite temperament: small text, tight spacing, hairline
+ * ring-1 focus, and a conventional primary-tinted selection (no uppercase, no
+ * inversion). Same cn-choicebox-* contract (see style-mira.css).
+ */
+.style-lyra {
+  .cn-choicebox {
+    @apply gap-1.5;
+  }
+
+  .cn-choicebox-item {
+    @apply rounded-none border border-input bg-card text-card-foreground hover:bg-accent/40 focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 data-pressed:border-primary data-pressed:bg-accent data-[state=on]:border-primary data-[state=on]:bg-accent;
+  }
+
+  .cn-choicebox-item-size-default {
+    @apply gap-3 p-3;
+  }
+
+  .cn-choicebox-item-size-sm {
+    @apply gap-2.5 p-2.5;
+  }
+
+  .cn-choicebox-item-icon {
+    @apply size-9 rounded-none bg-muted text-muted-foreground transition-colors group-data-pressed/choicebox-item:bg-primary/10 group-data-pressed/choicebox-item:text-primary group-data-[state=on]/choicebox-item:bg-primary/10 group-data-[state=on]/choicebox-item:text-primary [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4.5;
+  }
+
+  .cn-choicebox-item-title {
+    @apply text-xs font-medium text-foreground;
+  }
+
+  .cn-choicebox-item-description {
+    @apply text-xs/relaxed text-muted-foreground;
+  }
+
+  .cn-choicebox-item-indicator {
+    @apply size-4 rounded-full data-[multiple]:rounded-none border border-input text-transparent transition-colors group-data-pressed/choicebox-item:border-primary group-data-pressed/choicebox-item:bg-primary group-data-pressed/choicebox-item:text-primary-foreground group-data-[state=on]/choicebox-item:border-primary group-data-[state=on]/choicebox-item:bg-primary group-data-[state=on]/choicebox-item:text-primary-foreground;
+  }
+
+  /* Chrome — sharp corners to match the compact, technical components. */
+  .cn-button {
+    @apply rounded-none font-medium;
+  }
+  .cn-select-trigger {
+    @apply rounded-none;
+  }
+  .cn-select-content {
+    @apply rounded-none;
+  }
+  .cn-select-item {
+    @apply rounded-none;
+  }
+  .cn-card {
+    @apply rounded-none;
+  }
+}

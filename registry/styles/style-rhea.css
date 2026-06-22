@@ -1,0 +1,56 @@
+/*
+ * style-rhea — generously round (after shadcn's Rhea). Between Nova and Luma:
+ * filled tonal items with a 2xl radius and a soft shadow, squircle icon tiles.
+ * Primary-tinted selection. Same cn-choicebox-* contract (see style-mira.css).
+ */
+.style-rhea {
+  .cn-choicebox {
+    @apply gap-2.5;
+  }
+
+  .cn-choicebox-item {
+    @apply rounded-2xl border border-transparent bg-muted/40 text-foreground shadow-sm hover:bg-muted/60 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 data-pressed:border-primary data-pressed:bg-primary/5 data-[state=on]:border-primary data-[state=on]:bg-primary/5;
+  }
+
+  .cn-choicebox-item-size-default {
+    @apply gap-3 p-4;
+  }
+
+  .cn-choicebox-item-size-sm {
+    @apply gap-2.5 p-3.5;
+  }
+
+  /* Squircle icon tile. */
+  .cn-choicebox-item-icon {
+    @apply size-10 rounded-xl bg-background text-muted-foreground transition-colors group-data-pressed/choicebox-item:bg-primary/10 group-data-pressed/choicebox-item:text-primary group-data-[state=on]/choicebox-item:bg-primary/10 group-data-[state=on]/choicebox-item:text-primary [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5;
+  }
+
+  .cn-choicebox-item-title {
+    @apply text-sm font-medium text-foreground;
+  }
+
+  .cn-choicebox-item-description {
+    @apply text-xs/relaxed text-muted-foreground;
+  }
+
+  .cn-choicebox-item-indicator {
+    @apply size-5 rounded-full data-[multiple]:rounded-lg border border-input text-transparent transition-colors group-data-pressed/choicebox-item:border-primary group-data-pressed/choicebox-item:bg-primary group-data-pressed/choicebox-item:text-primary-foreground group-data-[state=on]/choicebox-item:border-primary group-data-[state=on]/choicebox-item:bg-primary group-data-[state=on]/choicebox-item:text-primary-foreground;
+  }
+
+  /* Chrome — buttons & selects adopt the style too. */
+  .cn-button {
+    @apply rounded-2xl font-medium;
+  }
+  .cn-select-trigger {
+    @apply rounded-2xl;
+  }
+  .cn-select-content {
+    @apply rounded-2xl;
+  }
+  .cn-select-item {
+    @apply rounded-xl;
+  }
+  .cn-card {
+    @apply rounded-2xl;
+  }
+}

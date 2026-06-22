@@ -1,0 +1,69 @@
+/*
+ * style-mira — the default crescent-ui style.
+ *
+ * Each `cn-choicebox-*` class defines the style-tunable visual treatment for one
+ * part of the Choicebox via `@apply`. The component markup ships these as bare
+ * semantic class names; this file supplies their utilities.
+ *
+ * Two consumers read this file:
+ *   1. The registry build (scripts/build-registry.ts) — createStyleMap() parses
+ *      these @apply rules into a { cn-class -> utilities } map, and transformStyle()
+ *      inlines them into the distributed component (no cn-* left in the output).
+ *   2. The showcase — app.css imports every style-*.css, and a `.style-<name>`
+ *      wrapper class on the preview selects which one is live.
+ *
+ * Keep selectors flat (`.cn-*`, no `&`) so createStyleMap can map each one.
+ * Mira reproduces the original inline design exactly.
+ */
+.style-mira {
+  .cn-choicebox {
+    @apply gap-3;
+  }
+
+  .cn-choicebox-item {
+    @apply rounded-lg border border-input bg-card text-card-foreground shadow-xs hover:bg-accent/50 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 data-pressed:border-primary data-pressed:bg-accent data-[state=on]:border-primary data-[state=on]:bg-accent;
+  }
+
+  .cn-choicebox-item-size-default {
+    @apply gap-3 p-4;
+  }
+
+  .cn-choicebox-item-size-sm {
+    @apply gap-2.5 p-3;
+  }
+
+  .cn-choicebox-item-icon {
+    @apply size-10 rounded-md bg-muted text-muted-foreground transition-colors group-data-pressed/choicebox-item:bg-primary/10 group-data-pressed/choicebox-item:text-primary group-data-[state=on]/choicebox-item:bg-primary/10 group-data-[state=on]/choicebox-item:text-primary [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5;
+  }
+
+  .cn-choicebox-item-title {
+    @apply text-sm font-medium text-foreground;
+  }
+
+  .cn-choicebox-item-description {
+    @apply text-xs/relaxed text-muted-foreground;
+  }
+
+  /* Radio (single) stays an intrinsic circle; checkbox (multiple) tracks the
+     soft radius. data-multiple is set by the component. */
+  .cn-choicebox-item-indicator {
+    @apply size-5 rounded-full data-[multiple]:rounded-sm border border-input text-transparent transition-colors group-data-pressed/choicebox-item:border-primary group-data-pressed/choicebox-item:bg-primary group-data-pressed/choicebox-item:text-primary-foreground group-data-[state=on]/choicebox-item:border-primary group-data-[state=on]/choicebox-item:bg-primary group-data-[state=on]/choicebox-item:text-primary-foreground;
+  }
+
+  /* Chrome — buttons & selects adopt the style too. */
+  .cn-button {
+    @apply rounded-md font-medium;
+  }
+  .cn-select-trigger {
+    @apply rounded-md;
+  }
+  .cn-select-content {
+    @apply rounded-lg;
+  }
+  .cn-select-item {
+    @apply rounded-md;
+  }
+  .cn-card {
+    @apply rounded-xl;
+  }
+}

@@ -1,0 +1,55 @@
+/*
+ * style-vega — classic, balanced (after shadcn's Vega). Bordered cards with a
+ * medium radius and a soft shadow; primary-tinted selection. Same
+ * cn-choicebox-* contract as every style (see style-mira.css).
+ */
+.style-vega {
+  .cn-choicebox {
+    @apply gap-3;
+  }
+
+  .cn-choicebox-item {
+    @apply rounded-xl border border-input bg-card text-card-foreground shadow-xs hover:bg-accent/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 data-pressed:border-primary data-pressed:bg-accent data-[state=on]:border-primary data-[state=on]:bg-accent;
+  }
+
+  .cn-choicebox-item-size-default {
+    @apply gap-3 p-4;
+  }
+
+  .cn-choicebox-item-size-sm {
+    @apply gap-2.5 p-3;
+  }
+
+  .cn-choicebox-item-icon {
+    @apply size-10 rounded-lg bg-muted text-muted-foreground transition-colors group-data-pressed/choicebox-item:bg-primary/10 group-data-pressed/choicebox-item:text-primary group-data-[state=on]/choicebox-item:bg-primary/10 group-data-[state=on]/choicebox-item:text-primary [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5;
+  }
+
+  .cn-choicebox-item-title {
+    @apply text-sm font-medium text-foreground;
+  }
+
+  .cn-choicebox-item-description {
+    @apply text-xs/relaxed text-muted-foreground;
+  }
+
+  .cn-choicebox-item-indicator {
+    @apply size-5 rounded-full data-[multiple]:rounded-sm border border-input text-transparent transition-colors group-data-pressed/choicebox-item:border-primary group-data-pressed/choicebox-item:bg-primary group-data-pressed/choicebox-item:text-primary-foreground group-data-[state=on]/choicebox-item:border-primary group-data-[state=on]/choicebox-item:bg-primary group-data-[state=on]/choicebox-item:text-primary-foreground;
+  }
+
+  /* Chrome — buttons & selects adopt the style too. */
+  .cn-button {
+    @apply rounded-lg font-medium;
+  }
+  .cn-select-trigger {
+    @apply rounded-lg;
+  }
+  .cn-select-content {
+    @apply rounded-xl;
+  }
+  .cn-select-item {
+    @apply rounded-md;
+  }
+  .cn-card {
+    @apply rounded-xl;
+  }
+}
