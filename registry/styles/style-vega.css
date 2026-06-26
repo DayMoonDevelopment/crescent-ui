@@ -4,6 +4,19 @@
  * cn-choicebox-* contract as every style (see style-mira.css).
  */
 .style-vega {
+  /* Fact — labelled label→value facts for detail/summary surfaces. */
+  .cn-fact {
+    @apply gap-1;
+  }
+
+  .cn-fact-label {
+    @apply text-[0.6875rem] font-medium tracking-wide text-muted-foreground uppercase;
+  }
+
+  .cn-fact-value {
+    @apply text-sm text-foreground;
+  }
+
   .cn-choicebox {
     @apply gap-3;
   }

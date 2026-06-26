@@ -61,6 +61,9 @@ const CHOICEBOX_BASE_DESCRIPTION =
 const CHOICEBOX_RADIX_DESCRIPTION =
   "The Radix variant of Choicebox, built on the Radix Toggle Group (type=\"single\" | \"multiple\").";
 
+const FACT_DESCRIPTION =
+  "A compact, read-only label→value block for detail and summary surfaces — ids, dates, status, counts.";
+
 const BASES: Base[] = [
   {
     name: "base",
@@ -73,6 +76,15 @@ const BASES: Base[] = [
         dependencies: ["@base-ui/react", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "fact",
+        type: "registry:ui",
+        title: "Fact",
+        description: FACT_DESCRIPTION,
+        dependencies: [],
+        file: "ui/fact.tsx",
+        target: "components/ui/fact.tsx",
       },
     ],
   },
@@ -87,6 +99,15 @@ const BASES: Base[] = [
         dependencies: ["radix-ui", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "fact",
+        type: "registry:ui",
+        title: "Fact (Radix)",
+        description: FACT_DESCRIPTION,
+        dependencies: [],
+        file: "ui/fact.tsx",
+        target: "components/ui/fact.tsx",
       },
     ],
   },

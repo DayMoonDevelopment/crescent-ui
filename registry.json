@@ -30,6 +30,34 @@
           "target": "components/ui/choicebox.tsx"
         }
       ]
+    },
+    {
+      "name": "fact",
+      "type": "registry:ui",
+      "title": "Fact",
+      "description": "A compact, read-only label→value block for detail and summary surfaces — ids, dates, status, counts. Lay several out in a flex/grid for a facts strip. Fully theme-token driven; the value slot is freeform.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/bases/base/ui/fact.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/fact.tsx"
+        }
+      ]
+    },
+    {
+      "name": "fact-radix",
+      "type": "registry:ui",
+      "title": "Fact (Radix)",
+      "description": "The Radix-base variant of Fact — byte-for-byte identical to the Base UI variant (Fact is a pure display primitive with no interactive library). Install this when your project's base is `radix`.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/bases/radix/ui/fact.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/fact.tsx"
+        }
+      ]
     }
   ]
 }
