@@ -50,6 +50,9 @@
   .cn-select-item {
     @apply rounded-none;
   }
+  .cn-dialog-content {
+    @apply rounded-none;
+  }
   .cn-card {
     @apply rounded-none;
   }

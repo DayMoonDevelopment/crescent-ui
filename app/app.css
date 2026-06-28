@@ -139,3 +139,44 @@
     cursor: pointer;
   }
 }
+
+/*
+ * Modal — replace-style inner navigation (ModalViews). The active ModalView
+ * animates in place on push/pop; `data-direction` flips the offset so forward
+ * and back read differently. Shipped to consumers via the modal registry item's
+ * `css` field (scripts/build-registry.ts); kept here so the showcase matches.
+ */
+@keyframes modal-view-forward {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes modal-view-back {
+  from {
+    opacity: 0;
+    transform: translateY(-0.375rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+[data-slot="modal-view"] {
+  animation: modal-view-forward 200ms ease-out;
+}
+[data-slot="modal-view"][data-direction="back"] {
+  animation-name: modal-view-back;
+}
+[data-slot="modal-view"][data-direction="none"] {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="modal-view"] {
+    animation: none;
+  }
+}

@@ -30,6 +30,21 @@
           "target": "components/ui/choicebox.tsx"
         }
       ]
+    },
+    {
+      "name": "modal",
+      "type": "registry:ui",
+      "title": "Modal",
+      "description": "A composable modal-layout system on top of the Dialog primitive: a pinned header, a single scrolling body, an optional muted-aside column, replace-style inner navigation (ModalViews), and a pinned footer — all combinable. Base-agnostic — it composes the consumer's dialog + button.",
+      "dependencies": [],
+      "registryDependencies": ["dialog", "button"],
+      "files": [
+        {
+          "path": "registry/bases/base/ui/modal.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/modal.tsx"
+        }
+      ]
     }
   ]
 }
