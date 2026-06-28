@@ -39,6 +39,20 @@
     @apply text-xs/relaxed text-muted-foreground;
   }
 
+  /* Copyable — a value surface + copy button. Sharp, editorial: the button is a
+     bordered square that inverts to a solid foreground block on copy. */
+  .cn-copyable {
+    @apply gap-3 rounded-none border border-input bg-transparent px-4 py-2.5 text-foreground;
+  }
+
+  .cn-copyable-content {
+    @apply truncate font-mono text-xs text-foreground;
+  }
+
+  .cn-copyable-button {
+    @apply size-9 rounded-none border border-input bg-transparent text-foreground transition-colors hover:bg-foreground hover:text-background focus-visible:ring-2 focus-visible:ring-ring/30 data-copied:border-foreground data-copied:bg-foreground data-copied:text-background;
+  }
+
   /* Radio stays circular; checkbox is a hard square. Selected fills with the
      foreground and knocks the glyph out in the background color. */
   .cn-choicebox-item-indicator {

@@ -1,4 +1,5 @@
 import { ChoiceboxExamples, ChoiceboxPreview } from "./choicebox-demo";
+import { CopyableExamples, CopyablePreview } from "./copyable-demo";
 
 // The gallery's source of truth: one entry per published crescent-ui component.
 // `preview` is the hero shown in the preview frame; `examples` are the extra
@@ -21,6 +22,14 @@ export const demos: Record<
     sourceFile: "ui/choicebox.tsx",
     preview: <ChoiceboxPreview />,
     examples: <ChoiceboxExamples />,
+  },
+  copyable: {
+    title: "Copyable",
+    description:
+      "A card-styled surface that displays a value alongside a button that copies it to the clipboard and confirms with a check.",
+    sourceFile: "ui/copyable.tsx",
+    preview: <CopyablePreview />,
+    examples: <CopyableExamples />,
   },
 };
 

@@ -30,6 +30,34 @@
           "target": "components/ui/choicebox.tsx"
         }
       ]
+    },
+    {
+      "name": "copyable",
+      "type": "registry:ui",
+      "title": "Copyable",
+      "description": "A card-styled surface that displays a value alongside a button that copies it to the clipboard and confirms with a check. Fully theme-token driven and icon-library agnostic.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/bases/base/ui/copyable.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/copyable.tsx"
+        }
+      ]
+    },
+    {
+      "name": "copyable-radix",
+      "type": "registry:ui",
+      "title": "Copyable (Radix)",
+      "description": "The Radix variant of Copyable — byte-identical to the Base UI variant (Copyable has no primitive dependency). Install this when your project's base is `radix`.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/bases/radix/ui/copyable.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/copyable.tsx"
+        }
+      ]
     }
   ]
 }
