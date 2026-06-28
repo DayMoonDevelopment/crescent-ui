@@ -38,6 +38,19 @@
     @apply size-5 rounded-full data-[multiple]:rounded-lg border border-input bg-background text-transparent transition-colors group-data-pressed/choicebox-item:border-primary group-data-pressed/choicebox-item:bg-primary group-data-pressed/choicebox-item:text-primary-foreground group-data-[state=on]/choicebox-item:border-primary group-data-[state=on]/choicebox-item:bg-primary group-data-[state=on]/choicebox-item:text-primary-foreground;
   }
 
+  /* Steps — status rail. Geometry (indicator size, inter-step gap, connector
+     offset/length) is structural in the component; these tokens carry only
+     color, border, and radius. Luma gives the done disc a soft lift. */
+  .cn-steps-indicator {
+    @apply rounded-full data-[status=complete]:bg-primary data-[status=complete]:text-primary-foreground data-[status=complete]:shadow-sm data-[status=current]:border-2 data-[status=current]:border-primary data-[status=current]:bg-primary/5 data-[status=upcoming]:border data-[status=upcoming]:border-border/70 data-[status=upcoming]:bg-background [&_svg:not([class*='size-'])]:size-4;
+  }
+  .cn-steps-dot {
+    @apply rounded-full group-data-[status=current]/step-indicator:bg-primary group-data-[status=upcoming]/step-indicator:bg-border;
+  }
+  .cn-steps-connector {
+    @apply data-[tone=muted]:w-px data-[tone=muted]:bg-border/50 data-[tone=active]:w-0 data-[tone=active]:border-l data-[tone=active]:border-dashed data-[tone=active]:border-primary data-[tone=complete]:w-px data-[tone=complete]:bg-primary;
+  }
+
   /* Chrome — pillowy: full-round buttons, very round selects. */
   .cn-button {
     @apply rounded-full font-medium;
