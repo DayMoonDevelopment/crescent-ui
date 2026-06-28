@@ -61,6 +61,11 @@ const CHOICEBOX_BASE_DESCRIPTION =
 const CHOICEBOX_RADIX_DESCRIPTION =
   "The Radix variant of Choicebox, built on the Radix Toggle Group (type=\"single\" | \"multiple\").";
 
+// Date Time uses no UI primitive (just React + date-fns), so its source is
+// identical across bases — the same item description applies to base and radix.
+const DATE_TIME_DESCRIPTION =
+  "A hydration-safe timestamp rendered in the viewer's locale and timezone, as a semantic <time> element. Built on date-fns.";
+
 const BASES: Base[] = [
   {
     name: "base",
@@ -73,6 +78,15 @@ const BASES: Base[] = [
         dependencies: ["@base-ui/react", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "date-time",
+        type: "registry:ui",
+        title: "Date Time",
+        description: DATE_TIME_DESCRIPTION,
+        dependencies: ["date-fns"],
+        file: "ui/date-time.tsx",
+        target: "components/ui/date-time.tsx",
       },
     ],
   },
@@ -87,6 +101,15 @@ const BASES: Base[] = [
         dependencies: ["radix-ui", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "date-time",
+        type: "registry:ui",
+        title: "Date Time (Radix)",
+        description: DATE_TIME_DESCRIPTION,
+        dependencies: ["date-fns"],
+        file: "ui/date-time.tsx",
+        target: "components/ui/date-time.tsx",
       },
     ],
   },

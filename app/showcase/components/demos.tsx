@@ -1,4 +1,5 @@
 import { ChoiceboxExamples, ChoiceboxPreview } from "./choicebox-demo";
+import { DateTimeExamples, DateTimePreview } from "./date-time-demo";
 
 // The gallery's source of truth: one entry per published crescent-ui component.
 // `preview` is the hero shown in the preview frame; `examples` are the extra
@@ -21,6 +22,14 @@ export const demos: Record<
     sourceFile: "ui/choicebox.tsx",
     preview: <ChoiceboxPreview />,
     examples: <ChoiceboxExamples />,
+  },
+  "date-time": {
+    title: "Date Time",
+    description:
+      "A hydration-safe timestamp shown in the viewer's locale and timezone, rendered as a semantic <time> element. Deterministic on the server and first paint, then re-formatted client-side.",
+    sourceFile: "ui/date-time.tsx",
+    preview: <DateTimePreview />,
+    examples: <DateTimeExamples />,
   },
 };
 
