@@ -61,6 +61,11 @@ const CHOICEBOX_BASE_DESCRIPTION =
 const CHOICEBOX_RADIX_DESCRIPTION =
   "The Radix variant of Choicebox, built on the Radix Toggle Group (type=\"single\" | \"multiple\").";
 
+// Steps is presentation-only (no primitive), so the base and radix variants are
+// identical — both are published so either base's consumers can install it.
+const STEPS_DESCRIPTION =
+  "A vertical, status-driven step rail — an ordered run threaded by a connecting line, each step fronted by a complete / current / upcoming indicator.";
+
 const BASES: Base[] = [
   {
     name: "base",
@@ -73,6 +78,15 @@ const BASES: Base[] = [
         dependencies: ["@base-ui/react", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "steps",
+        type: "registry:ui",
+        title: "Steps",
+        description: STEPS_DESCRIPTION,
+        dependencies: [],
+        file: "ui/steps.tsx",
+        target: "components/ui/steps.tsx",
       },
     ],
   },
@@ -87,6 +101,15 @@ const BASES: Base[] = [
         dependencies: ["radix-ui", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "steps",
+        type: "registry:ui",
+        title: "Steps",
+        description: STEPS_DESCRIPTION,
+        dependencies: [],
+        file: "ui/steps.tsx",
+        target: "components/ui/steps.tsx",
       },
     ],
   },

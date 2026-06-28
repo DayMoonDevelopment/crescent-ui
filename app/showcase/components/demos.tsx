@@ -1,4 +1,5 @@
 import { ChoiceboxExamples, ChoiceboxPreview } from "./choicebox-demo";
+import { StepsExamples, StepsPreview } from "./steps-demo";
 
 // The gallery's source of truth: one entry per published crescent-ui component.
 // `preview` is the hero shown in the preview frame; `examples` are the extra
@@ -21,6 +22,14 @@ export const demos: Record<
     sourceFile: "ui/choicebox.tsx",
     preview: <ChoiceboxPreview />,
     examples: <ChoiceboxExamples />,
+  },
+  steps: {
+    title: "Steps",
+    description:
+      "A vertical, status-driven step rail. An ordered run threaded by a connecting line, each step fronted by a complete, current, or upcoming indicator.",
+    sourceFile: "ui/steps.tsx",
+    preview: <StepsPreview />,
+    examples: <StepsExamples />,
   },
 };
 

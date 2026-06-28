@@ -45,6 +45,21 @@
     @apply size-4.5 rounded-full data-[multiple]:rounded-none border border-input text-transparent transition-colors group-data-pressed/choicebox-item:border-foreground group-data-pressed/choicebox-item:bg-foreground group-data-pressed/choicebox-item:text-background group-data-[state=on]/choicebox-item:border-foreground group-data-[state=on]/choicebox-item:bg-foreground group-data-[state=on]/choicebox-item:text-background;
   }
 
+  /* Steps — status rail. Geometry (indicator size, inter-step gap, connector
+     offset/length) is structural in the component; these tokens carry only
+     color, border, and radius. Sera is square and foreground-inverted: the done
+     disc is a solid foreground block with the glyph knocked out, and progress
+     reads in foreground rather than primary. */
+  .cn-steps-indicator {
+    @apply rounded-none data-[status=complete]:bg-foreground data-[status=complete]:text-background data-[status=current]:border-2 data-[status=current]:border-foreground data-[status=current]:bg-transparent data-[status=upcoming]:border data-[status=upcoming]:border-input [&_svg:not([class*='size-'])]:size-4;
+  }
+  .cn-steps-dot {
+    @apply rounded-none group-data-[status=current]/step-indicator:bg-foreground group-data-[status=upcoming]/step-indicator:bg-border;
+  }
+  .cn-steps-connector {
+    @apply data-[tone=muted]:w-px data-[tone=muted]:bg-border/50 data-[tone=active]:w-0 data-[tone=active]:border-l data-[tone=active]:border-dashed data-[tone=active]:border-foreground data-[tone=complete]:w-px data-[tone=complete]:bg-foreground;
+  }
+
   /* Chrome — sharp corners and uppercase buttons, like the components. */
   .cn-button {
     @apply rounded-none font-semibold uppercase tracking-wide;
