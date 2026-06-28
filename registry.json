@@ -30,6 +30,34 @@
           "target": "components/ui/choicebox.tsx"
         }
       ]
+    },
+    {
+      "name": "date-time",
+      "type": "registry:ui",
+      "title": "Date Time",
+      "description": "A hydration-safe timestamp rendered in the viewer's locale and timezone. SSR and first client paint emit a deterministic value (no hydration mismatch), then it re-formats in the user's real timezone. Renders a semantic <time> element. Built on date-fns; no UI primitive, so it is identical across bases.",
+      "dependencies": ["date-fns"],
+      "files": [
+        {
+          "path": "registry/bases/base/ui/date-time.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/date-time.tsx"
+        }
+      ]
+    },
+    {
+      "name": "date-time-radix",
+      "type": "registry:ui",
+      "title": "Date Time (Radix)",
+      "description": "The Radix-base variant of Date Time — identical to the Base UI variant (this component uses no UI primitive). Install this when your project's base is `radix`.",
+      "dependencies": ["date-fns"],
+      "files": [
+        {
+          "path": "registry/bases/radix/ui/date-time.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/date-time.tsx"
+        }
+      ]
     }
   ]
 }
