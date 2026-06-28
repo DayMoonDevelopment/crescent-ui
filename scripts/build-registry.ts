@@ -61,6 +61,11 @@ const CHOICEBOX_BASE_DESCRIPTION =
 const CHOICEBOX_RADIX_DESCRIPTION =
   "The Radix variant of Choicebox, built on the Radix Toggle Group (type=\"single\" | \"multiple\").";
 
+const COPYABLE_BASE_DESCRIPTION =
+  "A card-styled surface that displays a value alongside a button that copies it to the clipboard.";
+const COPYABLE_RADIX_DESCRIPTION =
+  "The Radix variant of Copyable — byte-identical to the Base UI variant (Copyable has no primitive dependency).";
+
 const BASES: Base[] = [
   {
     name: "base",
@@ -73,6 +78,15 @@ const BASES: Base[] = [
         dependencies: ["@base-ui/react", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "copyable",
+        type: "registry:ui",
+        title: "Copyable",
+        description: COPYABLE_BASE_DESCRIPTION,
+        dependencies: [],
+        file: "ui/copyable.tsx",
+        target: "components/ui/copyable.tsx",
       },
     ],
   },
@@ -87,6 +101,15 @@ const BASES: Base[] = [
         dependencies: ["radix-ui", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "copyable",
+        type: "registry:ui",
+        title: "Copyable (Radix)",
+        description: COPYABLE_RADIX_DESCRIPTION,
+        dependencies: [],
+        file: "ui/copyable.tsx",
+        target: "components/ui/copyable.tsx",
       },
     ],
   },
