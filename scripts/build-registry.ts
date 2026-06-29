@@ -30,6 +30,12 @@ type Item = {
   title: string;
   description: string;
   dependencies: string[];
+  // Other registry items this one installs alongside (shadcn `shadcn add`
+  // resolves these too) — e.g. modal builds on the consumer's dialog + button.
+  registryDependencies?: string[];
+  // Arbitrary CSS the item injects into the consumer's stylesheet (keyframes,
+  // data-slot rules). Same shape shadcn's registry-item `css` field expects.
+  css?: Record<string, unknown>;
   // Source path relative to registry/bases/<base>/, and install target.
   file: string;
   target: string;
@@ -61,6 +67,39 @@ const CHOICEBOX_BASE_DESCRIPTION =
 const CHOICEBOX_RADIX_DESCRIPTION =
   "The Radix variant of Choicebox, built on the Radix Toggle Group (type=\"single\" | \"multiple\").";
 
+const MODAL_DESCRIPTION =
+  "A composable modal-layout system on top of the Dialog primitive: a pinned header, a single scrolling body, an optional muted-aside column, a slidable carousel (ModalCarousel), replace-style inner navigation (ModalViews), and a pinned footer — all combinable.";
+
+// Modal source is base-agnostic (it composes the consumer's dialog + button +
+// carousel via `@/ui/*`, never a base primitive), so both variants ship the same
+// file and pull in whichever primitives the consumer's base provides.
+const MODAL_REGISTRY_DEPENDENCIES = ["dialog", "button", "carousel"];
+
+// The ModalViews replace-style transition. Injected into the consumer's
+// stylesheet on install; the showcase mirrors it in app/app.css.
+const MODAL_CSS: Record<string, unknown> = {
+  "@keyframes modal-view-forward": {
+    from: { opacity: "0", transform: "translateY(0.5rem)" },
+    to: { opacity: "1", transform: "translateY(0)" },
+  },
+  "@keyframes modal-view-back": {
+    from: { opacity: "0", transform: "translateY(-0.375rem)" },
+    to: { opacity: "1", transform: "translateY(0)" },
+  },
+  "[data-slot=modal-view]": {
+    animation: "modal-view-forward 200ms ease-out",
+  },
+  "[data-slot=modal-view][data-direction=back]": {
+    "animation-name": "modal-view-back",
+  },
+  "[data-slot=modal-view][data-direction=none]": {
+    animation: "none",
+  },
+  "@media (prefers-reduced-motion: reduce)": {
+    "[data-slot=modal-view]": { animation: "none" },
+  },
+};
+
 const BASES: Base[] = [
   {
     name: "base",
@@ -73,6 +112,17 @@ const BASES: Base[] = [
         dependencies: ["@base-ui/react", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "modal",
+        type: "registry:ui",
+        title: "Modal",
+        description: MODAL_DESCRIPTION,
+        dependencies: [],
+        registryDependencies: MODAL_REGISTRY_DEPENDENCIES,
+        css: MODAL_CSS,
+        file: "ui/modal.tsx",
+        target: "components/ui/modal.tsx",
       },
     ],
   },
@@ -87,6 +137,17 @@ const BASES: Base[] = [
         dependencies: ["radix-ui", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "modal",
+        type: "registry:ui",
+        title: "Modal",
+        description: MODAL_DESCRIPTION,
+        dependencies: [],
+        registryDependencies: MODAL_REGISTRY_DEPENDENCIES,
+        css: MODAL_CSS,
+        file: "ui/modal.tsx",
+        target: "components/ui/modal.tsx",
       },
     ],
   },
@@ -147,6 +208,9 @@ async function build() {
           title: item.title,
           description: item.description,
           dependencies: item.dependencies,
+          ...(item.registryDependencies
+            ? { registryDependencies: item.registryDependencies }
+            : {}),
           files: [
             {
               path: `registry/${base.name}-${style}/${item.file}`,
@@ -155,6 +219,7 @@ async function build() {
               content,
             },
           ],
+          ...(item.css ? { css: item.css } : {}),
         };
 
         const dir = path.join(outRoot, `${base.name}-${style}`);

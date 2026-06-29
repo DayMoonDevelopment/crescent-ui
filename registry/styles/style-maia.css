@@ -50,6 +50,9 @@
   .cn-select-item {
     @apply rounded-lg;
   }
+  .cn-dialog-content {
+    @apply rounded-2xl;
+  }
   .cn-card {
     @apply rounded-2xl;
   }

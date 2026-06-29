@@ -49,6 +49,9 @@
   .cn-select-item {
     @apply rounded-md;
   }
+  .cn-dialog-content {
+    @apply rounded-xl;
+  }
   .cn-card {
     @apply rounded-xl;
   }

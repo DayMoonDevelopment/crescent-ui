@@ -51,6 +51,9 @@
   .cn-select-item {
     @apply rounded-2xl;
   }
+  .cn-dialog-content {
+    @apply rounded-3xl;
+  }
   .cn-card {
     @apply rounded-3xl;
   }

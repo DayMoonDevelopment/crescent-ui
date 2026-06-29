@@ -1,4 +1,5 @@
 import { ChoiceboxExamples, ChoiceboxPreview } from "./choicebox-demo";
+import { ModalExamples, ModalPreview } from "./modal-demo";
 
 // The gallery's source of truth: one entry per published crescent-ui component.
 // `preview` is the hero shown in the preview frame; `examples` are the extra
@@ -21,6 +22,14 @@ export const demos: Record<
     sourceFile: "ui/choicebox.tsx",
     preview: <ChoiceboxPreview />,
     examples: <ChoiceboxExamples />,
+  },
+  modal: {
+    title: "Modal",
+    description:
+      "A composable modal-layout system on top of the Dialog primitive: a pinned header, a single scrolling body, an optional muted-aside column, a slidable carousel, replace-style inner navigation, and a pinned footer.",
+    sourceFile: "ui/modal.tsx",
+    preview: <ModalPreview />,
+    examples: <ModalExamples />,
   },
 };
 
