@@ -1,4 +1,5 @@
 import { ChoiceboxExamples, ChoiceboxPreview } from "./choicebox-demo";
+import { InputSecretExamples, InputSecretPreview } from "./input-secret-demo";
 
 // The gallery's source of truth: one entry per published crescent-ui component.
 // `preview` is the hero shown in the preview frame; `examples` are the extra
@@ -21,6 +22,14 @@ export const demos: Record<
     sourceFile: "ui/choicebox.tsx",
     preview: <ChoiceboxPreview />,
     examples: <ChoiceboxExamples />,
+  },
+  "input-secret": {
+    title: "Input Secret",
+    description:
+      "A masked secret input for API keys and tokens, built on Input Group, with a reveal/hide toggle. Deliberately not a password field so the OS/password manager doesn't offer to save it.",
+    sourceFile: "ui/input-secret.tsx",
+    preview: <InputSecretPreview />,
+    examples: <InputSecretExamples />,
   },
 };
 
