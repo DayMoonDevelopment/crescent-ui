@@ -22,21 +22,37 @@ import { cn } from "@/lib/utils";
 // Fact is a pure display component (no interactive primitive), so this Radix
 // variant is byte-for-byte identical to the Base UI variant at base/ui/fact.tsx.
 //
+// `orientation` sets how the label and value lay out:
+//   - "vertical" (default): label stacked above its value — the facts-strip cell.
+//   - "horizontal": label and value sit on one row (label | value), the
+//     settings-style row look. Give the label a width via className (e.g.
+//     `[&_[data-slot=fact-label]]:w-24`) to align values down a column.
+//
 // Anatomy:
 //   <Fact label="Connected">May 15, 2026</Fact>
+//   <Fact label="Connected" orientation="horizontal">May 15, 2026</Fact>
+
+type FactOrientation = "vertical" | "horizontal";
 
 function Fact({
   label,
+  orientation = "vertical",
   className,
   children,
   ...props
 }: ComponentProps<"div"> & {
   label: ReactNode;
+  orientation?: FactOrientation;
 }) {
   return (
     <div
       data-slot="fact"
-      className={cn("cn-fact flex min-w-0 flex-col", className)}
+      data-orientation={orientation}
+      className={cn(
+        "cn-fact flex min-w-0",
+        orientation === "horizontal" ? "flex-row items-baseline" : "flex-col",
+        className,
+      )}
       {...props}
     >
       <span data-slot="fact-label" className="cn-fact-label">

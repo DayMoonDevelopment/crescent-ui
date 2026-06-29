@@ -6,7 +6,7 @@
 .style-maia {
   /* Fact — labelled label→value facts for detail/summary surfaces. */
   .cn-fact {
-    @apply gap-1;
+    @apply gap-1 data-[orientation=horizontal]:gap-2;
   }
 
   .cn-fact-label {

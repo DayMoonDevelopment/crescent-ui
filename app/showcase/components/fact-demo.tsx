@@ -54,6 +54,26 @@ export function FactExamples() {
           <Fact label="Posts">128</Fact>
         </div>
       </Example>
+
+      <Example
+        name="Horizontal"
+        description="orientation=&quot;horizontal&quot; lays the label and value on one row. Give the label a width to align values down a column — the settings-row look."
+      >
+        <div className="flex w-full max-w-md flex-col gap-3 [&_[data-slot=fact-label]]:w-24">
+          <Fact label="Platform" orientation="horizontal">
+            Instagram
+          </Fact>
+          <Fact label="Connected" orientation="horizontal">
+            May 15, 2026
+          </Fact>
+          <Fact label="Status" orientation="horizontal">
+            <Status label="Connected" />
+          </Fact>
+          <Fact label="Posts" orientation="horizontal">
+            128
+          </Fact>
+        </div>
+      </Example>
     </div>
   );
 }
