@@ -148,3 +148,54 @@
     cursor: pointer;
   }
 }
+
+/*
+ * StatusIndicator (`app/ui/status-indicator.tsx`) animation states, selected via
+ * the `animation` prop (`data-animation`). Color changes between statuses animate
+ * via `transition-colors` on the dot itself. Both motion states are disabled
+ * under `prefers-reduced-motion`.
+ */
+@layer components {
+  @keyframes status-indicator-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+  @keyframes status-indicator-radar {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(2.75);
+      opacity: 0;
+    }
+  }
+  [data-slot="status-indicator"][data-animation="pulse"] {
+    animation: status-indicator-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  [data-slot="status-indicator"][data-animation="radar"] {
+    position: relative;
+  }
+  /* Expanding ring emitted behind the dot; inherits the dot's color + radius. */
+  [data-slot="status-indicator"][data-animation="radar"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: inherit;
+    animation: status-indicator-radar 1.5s ease-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-slot="status-indicator"][data-animation="pulse"] {
+      animation: none;
+    }
+    [data-slot="status-indicator"][data-animation="radar"]::before {
+      animation: none;
+    }
+  }
+}
