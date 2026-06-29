@@ -40,6 +40,9 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -75,6 +78,9 @@
   --accent: oklch(0.967 0.001 286.375);
   --accent-foreground: oklch(0.21 0.006 285.885);
   --destructive: oklch(0.577 0.245 27.325);
+  --success: oklch(0.627 0.17 149.214);
+  --warning: oklch(0.769 0.166 70.08);
+  --info: oklch(0.588 0.158 254.624);
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
   --ring: oklch(0.705 0.015 286.067);
@@ -109,6 +115,9 @@
   --accent: oklch(0.274 0.006 286.033);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
+  --success: oklch(0.696 0.17 162.48);
+  --warning: oklch(0.828 0.189 84.429);
+  --info: oklch(0.685 0.169 254.624);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.552 0.016 285.938);
@@ -137,5 +146,56 @@
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
+  }
+}
+
+/*
+ * StatusIndicator (`app/ui/status-indicator.tsx`) animation states, selected via
+ * the `animation` prop (`data-animation`). Color changes between statuses animate
+ * via `transition-colors` on the dot itself. Both motion states are disabled
+ * under `prefers-reduced-motion`.
+ */
+@layer components {
+  @keyframes status-indicator-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+  @keyframes status-indicator-radar {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(2.75);
+      opacity: 0;
+    }
+  }
+  [data-slot="status-indicator"][data-animation="pulse"] {
+    animation: status-indicator-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  [data-slot="status-indicator"][data-animation="radar"] {
+    position: relative;
+  }
+  /* Expanding ring emitted behind the dot; inherits the dot's color + radius. */
+  [data-slot="status-indicator"][data-animation="radar"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: inherit;
+    animation: status-indicator-radar 1.5s ease-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-slot="status-indicator"][data-animation="pulse"] {
+      animation: none;
+    }
+    [data-slot="status-indicator"][data-animation="radar"]::before {
+      animation: none;
+    }
   }
 }
