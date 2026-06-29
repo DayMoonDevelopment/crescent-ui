@@ -9,6 +9,19 @@
  * style-mira.css and the component's STYLING MODEL note.
  */
 .style-sera {
+  /* Fact — labelled label→value facts for detail/summary surfaces. */
+  .cn-fact {
+    @apply gap-1 data-[orientation=horizontal]:gap-2;
+  }
+
+  .cn-fact-label {
+    @apply text-[0.6875rem] font-medium tracking-wide text-muted-foreground uppercase;
+  }
+
+  .cn-fact-value {
+    @apply text-sm text-foreground;
+  }
+
   .cn-choicebox {
     @apply gap-2;
   }

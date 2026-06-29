@@ -1,4 +1,5 @@
 import { ChoiceboxExamples, ChoiceboxPreview } from "./choicebox-demo";
+import { FactExamples, FactPreview } from "./fact-demo";
 
 // The gallery's source of truth: one entry per published crescent-ui component.
 // `preview` is the hero shown in the preview frame; `examples` are the extra
@@ -21,6 +22,14 @@ export const demos: Record<
     sourceFile: "ui/choicebox.tsx",
     preview: <ChoiceboxPreview />,
     examples: <ChoiceboxExamples />,
+  },
+  fact: {
+    title: "Fact",
+    description:
+      "A compact, read-only label→value block for detail and summary surfaces — ids, dates, status, counts. Lay several out in a grid for a facts strip.",
+    sourceFile: "ui/fact.tsx",
+    preview: <FactPreview />,
+    examples: <FactExamples />,
   },
 };
 
