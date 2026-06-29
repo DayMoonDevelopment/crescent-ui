@@ -30,6 +30,8 @@ type Item = {
   title: string;
   description: string;
   dependencies: string[];
+  // Other registry items this one composes (shadcn pulls them in on install).
+  registryDependencies?: string[];
   // Source path relative to registry/bases/<base>/, and install target.
   file: string;
   target: string;
@@ -61,6 +63,9 @@ const CHOICEBOX_BASE_DESCRIPTION =
 const CHOICEBOX_RADIX_DESCRIPTION =
   "The Radix variant of Choicebox, built on the Radix Toggle Group (type=\"single\" | \"multiple\").";
 
+const INPUT_SECRET_DESCRIPTION =
+  "A masked secret input for API keys and tokens, built on Input Group, with a reveal/hide toggle. Deliberately not type=\"password\" so the OS/password manager doesn't offer to save it.";
+
 const BASES: Base[] = [
   {
     name: "base",
@@ -73,6 +78,16 @@ const BASES: Base[] = [
         dependencies: ["@base-ui/react", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "input-secret",
+        type: "registry:ui",
+        title: "Input Secret",
+        description: INPUT_SECRET_DESCRIPTION,
+        dependencies: [],
+        registryDependencies: ["input", "input-group"],
+        file: "ui/input-secret.tsx",
+        target: "components/ui/input-secret.tsx",
       },
     ],
   },
@@ -87,6 +102,16 @@ const BASES: Base[] = [
         dependencies: ["radix-ui", "class-variance-authority"],
         file: "ui/choicebox.tsx",
         target: "components/ui/choicebox.tsx",
+      },
+      {
+        name: "input-secret",
+        type: "registry:ui",
+        title: "Input Secret",
+        description: INPUT_SECRET_DESCRIPTION,
+        dependencies: [],
+        registryDependencies: ["input", "input-group"],
+        file: "ui/input-secret.tsx",
+        target: "components/ui/input-secret.tsx",
       },
     ],
   },
@@ -147,6 +172,9 @@ async function build() {
           title: item.title,
           description: item.description,
           dependencies: item.dependencies,
+          ...(item.registryDependencies
+            ? { registryDependencies: item.registryDependencies }
+            : {}),
           files: [
             {
               path: `registry/${base.name}-${style}/${item.file}`,
