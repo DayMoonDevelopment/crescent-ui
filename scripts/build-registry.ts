@@ -68,12 +68,12 @@ const CHOICEBOX_RADIX_DESCRIPTION =
   "The Radix variant of Choicebox, built on the Radix Toggle Group (type=\"single\" | \"multiple\").";
 
 const MODAL_DESCRIPTION =
-  "A composable modal-layout system on top of the Dialog primitive: a pinned header, a single scrolling body, an optional muted-aside column, replace-style inner navigation (ModalViews), and a pinned footer — all combinable.";
+  "A composable modal-layout system on top of the Dialog primitive: a pinned header, a single scrolling body, an optional muted-aside column, a slidable carousel (ModalCarousel), replace-style inner navigation (ModalViews), and a pinned footer — all combinable.";
 
-// Modal source is base-agnostic (it composes the consumer's dialog + button via
-// `@/ui/*`, never a base primitive), so both variants ship the same file and
-// pull in whichever dialog the consumer's base provides.
-const MODAL_REGISTRY_DEPENDENCIES = ["dialog", "button"];
+// Modal source is base-agnostic (it composes the consumer's dialog + button +
+// carousel via `@/ui/*`, never a base primitive), so both variants ship the same
+// file and pull in whichever primitives the consumer's base provides.
+const MODAL_REGISTRY_DEPENDENCIES = ["dialog", "button", "carousel"];
 
 // The ModalViews replace-style transition. Injected into the consumer's
 // stylesheet on install; the showcase mirrors it in app/app.css.

@@ -2,6 +2,10 @@ import {
   Modal,
   ModalAside,
   ModalBody,
+  ModalCarousel,
+  ModalCarouselDots,
+  ModalCarouselNav,
+  ModalCarouselViewport,
   ModalClose,
   ModalColumn,
   ModalColumns,
@@ -9,6 +13,7 @@ import {
   ModalDescription,
   ModalFooter,
   ModalHeader,
+  ModalSlide,
   ModalTitle,
   ModalTrigger,
   ModalView,
@@ -25,6 +30,21 @@ const PARAGRAPHS = Array.from(
   (_, i) =>
     `Paragraph ${i + 1}. The body is the single scroll region between the pinned header and footer — long content scrolls here while the chrome stays put.`,
 );
+
+const SLIDES = [
+  {
+    title: "Welcome",
+    body: "The carousel steps through ordered slides — drag is off, so progress is deliberate.",
+  },
+  {
+    title: "One step at a time",
+    body: "The footer's nav drives the track; the dots track which slide is active.",
+  },
+  {
+    title: "All set",
+    body: "On the last slide Next becomes Finish — wire onFinish to close or advance.",
+  },
+];
 
 // The hero — a framed dialog: pinned header + footer, the body owns the scroll.
 export function ModalPreview() {
@@ -89,6 +109,37 @@ export function ModalExamples() {
             <ModalFooter>
               <ModalClose render={<Button>Continue</Button>} />
             </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Example>
+
+      <Example
+        name="Slidable carousel"
+        description="Ordered horizontal slides with a deliberate button-driven step — dots track progress; Back hides on the first slide and Next becomes Finish on the last."
+      >
+        <Modal>
+          <ModalTrigger render={<Button variant="outline">Open tour</Button>} />
+          <ModalContent layout="framed">
+            <ModalCarousel>
+              <ModalCarouselViewport>
+                {SLIDES.map((slide) => (
+                  <ModalSlide key={slide.title}>
+                    <div className="flex flex-col gap-2 px-6 py-10 text-center">
+                      <p className="font-heading text-lg font-semibold text-foreground">
+                        {slide.title}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {slide.body}
+                      </p>
+                    </div>
+                  </ModalSlide>
+                ))}
+              </ModalCarouselViewport>
+              <ModalFooter className="sm:justify-between">
+                <ModalCarouselDots />
+                <ModalCarouselNav />
+              </ModalFooter>
+            </ModalCarousel>
           </ModalContent>
         </Modal>
       </Example>

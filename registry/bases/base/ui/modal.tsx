@@ -6,6 +6,12 @@ import { cn } from "@/lib/utils";
 import { IconPlaceholder } from "@/ui/icon-placeholder";
 import { Button } from "@/ui/button";
 import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/ui/carousel";
+import {
   Dialog,
   DialogClose,
   DialogContent,
@@ -18,14 +24,16 @@ import {
 // sits ON TOP of the `Dialog` primitive (`@/ui/dialog`), which it consumes
 // internally and never replaces. Where `Dialog` is the raw popup, `Modal` adds
 // the cohesive *layout* every dialog should share: a pinned header, a single
-// scrolling body, an optional muted-aside second column, replace-style inner
-// navigation (ModalViews) — and a pinned footer, all combinable.
+// scrolling body, an optional muted-aside second column, a slidable carousel
+// (ModalCarousel), replace-style inner navigation (ModalViews) — and a pinned
+// footer, all combinable.
 //
 // This is the registry SOURCE: it is intentionally icon-library agnostic
 // (IconPlaceholder, resolved on `shadcn add`) and structural-only — colors track
 // the theme and the dialog's corner radius is the one style-tunable token
 // (cn-dialog-content). The replace-style view transition rides the
-// `[data-slot=modal-view]` animation shipped in this item's `css`.
+// `[data-slot=modal-view]` animation shipped in this item's `css`; the carousel
+// track is the consumer's `carousel` primitive (a registry dependency).
 //
 // References (the resolved, app-level implementations this is generalized from):
 //   - Post for Me  · post-for-me-dashboard  (app modal-layout system)
@@ -184,6 +192,186 @@ function ModalFooter({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
+// ModalCarousel — the slidable variation: ordered horizontal slides with a
+// deliberate (button-driven) step, generalizing onboarding / tour carousels.
+// Drag is off — stepping is via ModalCarouselNav.
+//
+// `ModalCarousel` is a PROVIDER that wraps the whole region, so the track
+// (ModalCarouselViewport, holding ModalSlides) and a sibling ModalFooter with
+// ModalCarouselDots + ModalCarouselNav all read the same carousel state:
+//
+//   <ModalContent layout="framed">
+//     <ModalCarousel>
+//       <ModalCarouselViewport>
+//         <ModalSlide>…</ModalSlide>
+//       </ModalCarouselViewport>
+//       <ModalFooter className="sm:justify-between">
+//         <ModalCarouselDots />
+//         <ModalCarouselNav onFinish={…} />
+//       </ModalFooter>
+//     </ModalCarousel>
+//   </ModalContent>
+//
+// Orthogonal to ModalViews: a slide may host a nested ModalViews for drill-down
+// within a step.
+type ModalCarouselContextValue = {
+  index: number;
+  total: number;
+  isFirst: boolean;
+  isLast: boolean;
+  setApi: (api: CarouselApi) => void;
+  scrollNext: () => void;
+  scrollPrev: () => void;
+};
+
+const ModalCarouselContext =
+  React.createContext<ModalCarouselContextValue | null>(null);
+
+function useModalCarousel() {
+  const ctx = React.useContext(ModalCarouselContext);
+  if (!ctx) {
+    throw new Error("useModalCarousel must be used within <ModalCarousel>");
+  }
+  return ctx;
+}
+
+function ModalCarousel({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [index, setIndex] = React.useState(0);
+  const [total, setTotal] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!api) return;
+    const update = () => {
+      setIndex(api.selectedScrollSnap());
+      setTotal(api.scrollSnapList().length);
+    };
+    update();
+    api.on("select", update);
+    api.on("reInit", update);
+    return () => {
+      api.off("select", update);
+      api.off("reInit", update);
+    };
+  }, [api]);
+
+  const scrollNext = React.useCallback(() => api?.scrollNext(), [api]);
+  const scrollPrev = React.useCallback(() => api?.scrollPrev(), [api]);
+
+  return (
+    <ModalCarouselContext.Provider
+      value={{
+        index,
+        total,
+        isFirst: index === 0,
+        isLast: total === 0 || index === total - 1,
+        setApi,
+        scrollNext,
+        scrollPrev,
+      }}
+    >
+      <div
+        data-slot="modal-carousel"
+        // The provider wraps the WHOLE region (track + footer) so a sibling
+        // footer's dots/nav can read the carousel state.
+        className={cn("flex min-h-0 flex-1 flex-col", className)}
+        {...props}
+      >
+        {children}
+      </div>
+    </ModalCarouselContext.Provider>
+  );
+}
+
+// The embla track. Lives inside ModalCarousel; holds ModalSlides.
+function ModalCarouselViewport({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
+  const { setApi } = useModalCarousel();
+  return (
+    <Carousel
+      data-slot="modal-carousel-viewport"
+      setApi={setApi}
+      // Drag off: stepping is deliberate (footer buttons only).
+      opts={{ align: "start", watchDrag: false }}
+      className={cn("w-full", className)}
+      {...props}
+    >
+      <CarouselContent className="ms-0">{children}</CarouselContent>
+    </Carousel>
+  );
+}
+
+function ModalSlide({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <CarouselItem
+      data-slot="modal-slide"
+      className={cn("ps-0", className)}
+      {...props}
+    />
+  );
+}
+
+function ModalCarouselDots({ className }: { className?: string }) {
+  const { index, total } = useModalCarousel();
+  return (
+    <div
+      data-slot="modal-carousel-dots"
+      className={cn("flex items-center gap-1", className)}
+      aria-hidden
+    >
+      {Array.from({ length: total }, (_, i) => (
+        <span
+          key={i}
+          className={cn(
+            "h-1.5 rounded-full bg-border transition-all",
+            i === index ? "w-4 bg-primary" : "w-1.5"
+          )}
+        />
+      ))}
+    </div>
+  );
+}
+
+function ModalCarouselNav({
+  backLabel = "Back",
+  nextLabel = "Next",
+  finishLabel = "Finish",
+  onFinish,
+  className,
+}: {
+  backLabel?: string;
+  nextLabel?: string;
+  finishLabel?: string;
+  onFinish?: () => void;
+  className?: string;
+}) {
+  const { isFirst, isLast, scrollNext, scrollPrev } = useModalCarousel();
+  return (
+    <div
+      data-slot="modal-carousel-nav"
+      className={cn("flex items-center gap-2", className)}
+    >
+      {!isFirst ? (
+        <Button variant="ghost" onClick={scrollPrev}>
+          {backLabel}
+        </Button>
+      ) : null}
+      {isLast ? (
+        <Button onClick={onFinish}>{finishLabel}</Button>
+      ) : (
+        <Button onClick={scrollNext}>{nextLabel}</Button>
+      )}
+    </div>
+  );
+}
+
 // ModalViews — the replace-style inner navigation: a push/pop view stack that
 // swaps the active view *in place* (a subtle transition, NOT a horizontal
 // track). Use it when a dialog drills into sub-views and back (a settings panel,
@@ -336,10 +524,16 @@ export {
   ModalColumn,
   ModalAside,
   ModalFooter,
+  ModalCarousel,
+  ModalCarouselViewport,
+  ModalSlide,
+  ModalCarouselDots,
+  ModalCarouselNav,
   ModalViews,
   ModalView,
   ModalViewsBack,
   useModalLayout,
+  useModalCarousel,
   useModalViews,
   type ModalLayout,
 };

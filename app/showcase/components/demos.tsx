@@ -26,7 +26,7 @@ export const demos: Record<
   modal: {
     title: "Modal",
     description:
-      "A composable modal-layout system on top of the Dialog primitive: a pinned header, a single scrolling body, an optional muted-aside column, replace-style inner navigation, and a pinned footer.",
+      "A composable modal-layout system on top of the Dialog primitive: a pinned header, a single scrolling body, an optional muted-aside column, a slidable carousel, replace-style inner navigation, and a pinned footer.",
     sourceFile: "ui/modal.tsx",
     preview: <ModalPreview />,
     examples: <ModalExamples />,
